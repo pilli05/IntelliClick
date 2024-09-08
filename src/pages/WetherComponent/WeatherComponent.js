@@ -10,6 +10,7 @@ import L from "leaflet";
 import { ThemeContext } from "../../App";
 import { FaTemperatureHigh } from "react-icons/fa";
 import { CiTempHigh } from "react-icons/ci";
+import WeatherForeCast from "../../components/WeatherForeCast";
 
 const customIcon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
@@ -72,193 +73,211 @@ const WeatherComponent = () => {
           <img
             src="/assets/partly-cloudy.png"
             alt="clouds"
-            className="w-[120px]"
+            className="w-[100px]"
           />
         );
 
       case "Clear":
         return (
-          <img src="/assets/clear-sky.png" alt="sunny" className="w-[120px]" />
+          <img src="/assets/clear-sky.png" alt="sunny" className="w-[100px]" />
         );
       case "Rain":
-        return <img src="/assets/rain.png" alt="rain" className="w-[120px]" />;
+        return <img src="/assets/rain.png" alt="rain" className="w-[100px]" />;
       default:
-        return <img src="/assets/haze.png" alt="haze" className="w-[120px]" />;
+        return <img src="/assets/haze.png" alt="haze" className="w-[100px]" />;
     }
   };
 
   return (
-    <div
-      className={
-        theme === "light-theme"
-          ? "relative z-20 h-screen w-screen text-black"
-          : "relative z-20 h-screen w-screen text-white"
-      }
-    >
-      <Header />
-      <div className="flex justify-center items-center h-weather-conatiner">
-        <div
-          className={
-            theme === "light-theme"
-              ? "shadow shadow-black rounded px-4 mx-2 sm:mx-0 overflow-auto h-[90%]  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 "
-              : "shadow shadow-slate-50 px-4 mx-2 sm:mx-0 overflow-auto h-[90%]  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 "
-          }
-        >
+    <>
+      <div
+        className={
+          theme === "light-theme"
+            ? "relative z-20 h-screen w-screen text-black overflow-auto"
+            : "relative z-20 h-screen w-screen text-white overflow-auto"
+        }
+      >
+        <Header />
+        <div className="flex justify-center items-center h-weather-conatiner">
           <div
             className={
               theme === "light-theme"
-                ? "flex flex-col justify-between md:border-r-2 md:border-r-black pr-3 border-b-2 pb-2 md:pb-0 border-b-black md:border-b:none md:border-b-transparent "
-                : "flex flex-col justify-between md:border-r-2 md:border-r-white pr-3 border-b-2 pb-2 md:pb-0 border-b-white md:border-b:none md:border-b-transparent "
+                ? "shadow shadow-black rounded px-4 mx-2 sm:mx-0 overflow-auto h-[90%]  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 "
+                : "shadow shadow-slate-50 px-4 mx-2 sm:mx-0 overflow-auto h-[90%]  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 "
             }
           >
-            <div className="flex items-end flex-col">
-              <p className=" font-bold text-xl">{ascii_name}</p>
-              <p className="self-end text-sm">{cou_name_en}</p>
-            </div>
-
-            <div className="flex justify-center my-5 md:my-0">
-              <MapContainer
-                center={position}
-                zoom={10}
-                scrollWheelZoom={false}
-                style={{ height: "250px", width: "80%", borderRadius: "10px" }}
-              >
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                />
-                <Marker position={position} icon={customIcon}>
-                  <Popup>{ascii_name}</Popup>
-                </Marker>
-              </MapContainer>
-            </div>
-
-            <div className="flex items-start justify-between  space-x-3">
-              <div className="flex flex-col text-base font-semibold ">
-                <span>{time}</span>
-                <span>{date}</span>
-              </div>
-              <span className="text-[35px] font-bold  text-nowrap">
-                {changeTemperature(cityDetails?.main?.temp)}
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-col justify-between items-center space-y-5 ">
-            <div className="flex flex-col items-center w-full">
-              {handleImage(
-                cityDetails?.weather && cityDetails.weather.length > 0
-                  ? cityDetails.weather[0].main
-                  : null
-              )}
-
-              <p className="my-1 text-center">
-                {cityDetails?.weather && cityDetails.weather.length > 0
-                  ? cityDetails.weather[0].main
-                  : null}
-              </p>
-              <p className="my-1 text-center font-light">
-                Feels like:{" "}
-                <span className="font-bold">
-                  {changeTemperature(cityDetails?.main?.feels_like)}
-                </span>
-              </p>
-              <div className="flex  justify-between items-center w-full mt-2">
-                <p className="my-1 text-sm text-center font-light flex items-center">
-                  <CiTempHigh className="mr-1" /> Min Temp :{" "}
-                  <span className="font-bold ml-1">
-                    {changeTemperature(cityDetails?.main?.temp_min)}
-                  </span>
-                </p>
-                <p className="my-1 text-sm text-center font-light flex items-center">
-                  <CiTempHigh className="mr-1" />
-                  Max Temp :{" "}
-                  <span className="ml-1 font-bold">
-                    {changeTemperature(cityDetails?.main?.temp_max)}
-                  </span>
-                </p>
-              </div>
-              <div className="flex justify-between items-center w-full mt-2">
-                <p className="my-1 text-center text-sm font-light flex items-center">
-                  <img
-                    src="/assets/sun-rise.png"
-                    className="w-[20px] mr-1"
-                    alt="sun-rise"
-                  />
-                  Sun Rise :{" "}
-                  <span className="ml-1 font-bold">
-                    {" "}
-                    {moment.unix(cityDetails?.sys?.sunrise).format("HH:mm A")}
-                  </span>
-                </p>
-                <p className="my-1 text-sm text-center font-light flex items-center">
-                  <img
-                    src="/assets/sun-set.png"
-                    className="w-[20px] mr-1"
-                    alt="sun-set"
-                  />{" "}
-                  Sun Set :{" "}
-                  <span className="ml-1 font-bold">
-                    {moment.unix(cityDetails?.sys?.sunset).format("HH:mm A")}
-                  </span>
-                </p>
-              </div>
-            </div>
-
-            <select
-              className="outline-none p-2 rounded-lg bg-transparent shadow shadow-black text-white w-full"
-              onClick={(e) => setTemeratureType(e.target.value)}
+            <div
+              className={
+                theme === "light-theme"
+                  ? "flex flex-col justify-between md:border-r-2 md:border-r-black pr-3 border-b-2 pb-2 md:pb-0 border-b-black md:border-b:none md:border-b-transparent "
+                  : "flex flex-col justify-between md:border-r-2 md:border-r-white pr-3 border-b-2 pb-2 md:pb-0 border-b-white md:border-b:none md:border-b-transparent "
+              }
             >
-              <option value="Celcius" className="text-black">
-                Celcius
-              </option>
-              <option value="Fahrenheit" className="text-black">
-                Fahrenheit
-              </option>
-              <option value="Kelvin" className="text-black">
-                Kelvin
-              </option>
-            </select>
-
-            <div className="w-full">
-              <p
-                className={
-                  theme === "light-theme"
-                    ? "text-xl font-bold border-b border-b-black w-full text-center p-2 pb-3"
-                    : "text-xl font-bold border-b border-b-white w-full text-center p-2 pb-3"
-                }
-              >
-                {ascii_name}, {cityDetails?.sys?.country}
-              </p>
-              <div
-                className={
-                  theme === "light-theme"
-                    ? "border-b border-b-black w-full p-2 flex justify-between items-center"
-                    : "border-b border-b-white w-full p-2 flex justify-between items-center"
-                }
-              >
-                <span>Temperature</span>{" "}
-                <span>{changeTemperature(cityDetails?.main?.temp)}</span>
-              </div>
-              <div
-                className={
-                  theme === "light-theme"
-                    ? "border-b border-b-black w-full p-2 flex justify-between items-center"
-                    : "border-b border-b-white w-full p-2 flex justify-between items-center"
-                }
-              >
-                <span>Humidity</span>{" "}
-                <span>{cityDetails?.main?.humidity} %</span>
+              <div className="flex items-end flex-col">
+                <p className=" font-bold text-xl">{ascii_name}</p>
+                <p className="self-end text-sm">{cou_name_en}</p>
               </div>
 
-              <div className=" w-full p-2 flex justify-between items-center">
-                <span>Wind Speed</span>{" "}
-                <span>{(cityDetails?.wind?.speed * 3.6).toFixed(2)} Km/hr</span>
+              <div className="flex justify-center my-5 md:my-0">
+                <MapContainer
+                  center={position}
+                  zoom={10}
+                  scrollWheelZoom={false}
+                  style={{
+                    height: "250px",
+                    width: "80%",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  />
+                  <Marker position={position} icon={customIcon}>
+                    <Popup>{ascii_name}</Popup>
+                  </Marker>
+                </MapContainer>
+              </div>
+
+              <div className="flex items-start justify-between  space-x-3">
+                <div className="flex flex-col text-base font-semibold ">
+                  <span>{time}</span>
+                  <span>{date}</span>
+                </div>
+                <span className="text-[35px] font-bold  text-nowrap">
+                  {changeTemperature(cityDetails?.main?.temp)}
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-col justify-between items-center space-y-5 ">
+              <div className="flex flex-col items-center w-full">
+                {handleImage(
+                  cityDetails?.weather && cityDetails.weather.length > 0
+                    ? cityDetails.weather[0].main
+                    : null
+                )}
+
+                <p className="my-1 text-center">
+                  {cityDetails?.weather && cityDetails.weather.length > 0
+                    ? cityDetails.weather[0].main
+                    : null}
+                </p>
+                <p className="my-1 text-center font-light">
+                  Feels like:{" "}
+                  <span className="font-bold">
+                    {changeTemperature(cityDetails?.main?.feels_like)}
+                  </span>
+                </p>
+                <div className="flex  justify-between items-center w-full mt-2">
+                  <p className="my-1 text-sm text-center font-light flex items-center">
+                    <CiTempHigh className="mr-1" /> Min Temp :{" "}
+                    <span className="font-bold ml-1">
+                      {changeTemperature(cityDetails?.main?.temp_min)}
+                    </span>
+                  </p>
+                  <p className="my-1 text-sm text-center font-light flex items-center">
+                    <CiTempHigh className="mr-1" />
+                    Max Temp :{" "}
+                    <span className="ml-1 font-bold">
+                      {changeTemperature(cityDetails?.main?.temp_max)}
+                    </span>
+                  </p>
+                </div>
+                <div className="flex justify-between items-center w-full mt-2">
+                  <p className="my-1 text-center text-sm font-light flex items-center">
+                    <img
+                      src="/assets/sun-rise.png"
+                      className="w-[20px] mr-1"
+                      alt="sun-rise"
+                    />
+                    Sun Rise :{" "}
+                    <span className="ml-1 font-bold">
+                      {" "}
+                      {moment.unix(cityDetails?.sys?.sunrise).format("HH:mm A")}
+                    </span>
+                  </p>
+                  <p className="my-1 text-sm text-center font-light flex items-center">
+                    <img
+                      src="/assets/sun-set.png"
+                      className="w-[20px] mr-1"
+                      alt="sun-set"
+                    />{" "}
+                    Sun Set :{" "}
+                    <span className="ml-1 font-bold">
+                      {moment.unix(cityDetails?.sys?.sunset).format("HH:mm A")}
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <select
+                className="outline-none p-2 rounded-lg bg-transparent shadow shadow-black text-white w-full"
+                onClick={(e) => setTemeratureType(e.target.value)}
+              >
+                <option value="Celcius" className="text-black">
+                  Celcius
+                </option>
+                <option value="Fahrenheit" className="text-black">
+                  Fahrenheit
+                </option>
+                <option value="Kelvin" className="text-black">
+                  Kelvin
+                </option>
+              </select>
+
+              <div className="w-full">
+                <p
+                  className={
+                    theme === "light-theme"
+                      ? "text-xl font-bold border-b border-b-black w-full text-center p-2 pb-3"
+                      : "text-xl font-bold border-b border-b-white w-full text-center p-2 pb-3"
+                  }
+                >
+                  {ascii_name}, {cityDetails?.sys?.country}
+                </p>
+                <div
+                  className={
+                    theme === "light-theme"
+                      ? "border-b border-b-black w-full p-2 flex justify-between items-center"
+                      : "border-b border-b-white w-full p-2 flex justify-between items-center"
+                  }
+                >
+                  <span>Temperature</span>{" "}
+                  <span>{changeTemperature(cityDetails?.main?.temp)}</span>
+                </div>
+                <div
+                  className={
+                    theme === "light-theme"
+                      ? "border-b border-b-black w-full p-2 flex justify-between items-center"
+                      : "border-b border-b-white w-full p-2 flex justify-between items-center"
+                  }
+                >
+                  <span>Humidity</span>{" "}
+                  <span>{cityDetails?.main?.humidity} %</span>
+                </div>
+
+                <div className=" w-full p-2 flex justify-between items-center">
+                  <span>Wind Speed</span>{" "}
+                  <span>
+                    {(cityDetails?.wind?.speed * 3.6).toFixed(2)} Km/hr
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <div className="flex justify-center my-2">
+          <div className="w-full md:w-4/5 ">
+            <WeatherForeCast
+              latitute={coordinates?.lat}
+              longitude={coordinates?.lon}
+              changeTemperature={changeTemperature}
+              handleImage={handleImage}
+            />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
