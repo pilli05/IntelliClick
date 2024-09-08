@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import Header from "../../components/Header";
-import Select from "react-select";
 import { ThemeContext } from "../../App";
 
 const HomeComponent = () => {

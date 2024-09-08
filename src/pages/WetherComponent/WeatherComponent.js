@@ -8,7 +8,7 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { ThemeContext } from "../../App";
-import { FaCity, FaTemperatureHigh, FaWind } from "react-icons/fa";
+import { FaWind } from "react-icons/fa";
 import { CiTempHigh } from "react-icons/ci";
 import WeatherForeCast from "../../components/WeatherForeCast";
 import { WiHumidity } from "react-icons/wi";
@@ -30,7 +30,7 @@ const WeatherComponent = () => {
   const [temperatureType, setTemeratureType] = useState("Celcius");
   const { state } = location;
 
-  const { ascii_name, timezone, cou_name_en, coordinates } = state?.cityData;
+  const { ascii_name, cou_name_en, coordinates } = state?.cityData;
 
   const getCityWeatherDetails = async () => {
     const apiKey = process.env.REACT_APP_WEATHER_API_KEY;

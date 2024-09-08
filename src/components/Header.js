@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { CiLight } from "react-icons/ci";
 import { FaMoon } from "react-icons/fa";
 import { IoSunny } from "react-icons/io5";
 import { Link } from "react-router-dom";
