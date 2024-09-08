@@ -80,8 +80,10 @@ const WeatherComponent = () => {
         return (
           <img src="/assets/clear-sky.png" alt="sunny" className="w-[120px]" />
         );
+      case "Rain":
+        return <img src="/assets/rain.png" alt="rain" className="w-[120px]" />;
       default:
-        return <img src="/assets/haze.png" alt="sunny" className="w-[120px]" />;
+        return <img src="/assets/haze.png" alt="haze" className="w-[120px]" />;
     }
   };
 
