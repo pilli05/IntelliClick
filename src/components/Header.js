@@ -25,7 +25,13 @@ const Header = () => {
   console.log(theme);
 
   return (
-    <div className="z-20 relative shadow-sm shadow-slate-50 flex justify-between items-center ">
+    <div
+      className={
+        theme === "light-theme"
+          ? "z-20 relative shadow shadow-black flex justify-between items-center "
+          : "z-20 relative shadow shadow-slate-50 flex justify-between items-center "
+      }
+    >
       <Link to="/">
         <div className="flex items-center cursor-pointer">
           <img

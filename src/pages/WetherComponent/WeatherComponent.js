@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import axios from "axios";
 import { toast } from "react-toastify";
 import moment from "moment";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { ThemeContext } from "../../App";
@@ -61,7 +61,7 @@ const WeatherComponent = () => {
   const time = moment().format("hh:mm:ss A");
   const date = moment().format("dddd, D MMMM YYYY");
 
-  const position = [coordinates?.lon, coordinates?.lat];
+  const position = [coordinates?.lat, coordinates?.lon];
 
   const handleImage = (weatherCondition) => {
     switch (weatherCondition) {
@@ -93,8 +93,20 @@ const WeatherComponent = () => {
     >
       <Header />
       <div className="flex justify-center items-center h-screen md:h-weather-conatiner">
-        <div className="shadow-sm shadow-slate-50 px-4 mx-2 sm:mx-0 overflow-auto h-4/5  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 ">
-          <div className="flex flex-col justify-between md:border-r-2 md:border-r-white pr-3 border-b-2 pb-2 md:pb-0 border-b-white md:border-b:none md:border-b-transparent ">
+        <div
+          className={
+            theme === "light-theme"
+              ? "shadow shadow-black rounded px-4 mx-2 sm:mx-0 overflow-auto h-4/5  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 "
+              : "shadow shadow-slate-50 px-4 mx-2 sm:mx-0 overflow-auto h-4/5  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 "
+          }
+        >
+          <div
+            className={
+              theme === "light-theme"
+                ? "flex flex-col justify-between md:border-r-2 md:border-r-black pr-3 border-b-2 pb-2 md:pb-0 border-b-black md:border-b:none md:border-b-transparent "
+                : "flex flex-col justify-between md:border-r-2 md:border-r-white pr-3 border-b-2 pb-2 md:pb-0 border-b-white md:border-b:none md:border-b-transparent "
+            }
+          >
             <div className="flex items-end flex-col">
               <p className=" font-bold text-xl">{ascii_name}</p>
               <p className="self-end ">{cityDetails?.sys?.country}</p>
@@ -107,10 +119,10 @@ const WeatherComponent = () => {
                 scrollWheelZoom={false}
                 style={{ height: "250px", width: "80%", borderRadius: "10px" }}
               >
-                {/* <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              /> */}
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                />
                 <Marker position={position} icon={customIcon}>
                   <Popup>{ascii_name}</Popup>
                 </Marker>
@@ -163,14 +175,32 @@ const WeatherComponent = () => {
             </select>
 
             <div className="w-full">
-              <p className="text-xl font-bold border-b border-b-white w-full text-center p-2 pb-3">
+              <p
+                className={
+                  theme === "light-theme"
+                    ? "text-xl font-bold border-b border-b-black w-full text-center p-2 pb-3"
+                    : "text-xl font-bold border-b border-b-white w-full text-center p-2 pb-3"
+                }
+              >
                 {ascii_name}, {cityDetails?.sys?.country}
               </p>
-              <div className="border-b border-b-white w-full p-2 flex justify-between items-center">
+              <div
+                className={
+                  theme === "light-theme"
+                    ? "border-b border-b-black w-full p-2 flex justify-between items-center"
+                    : "border-b border-b-white w-full p-2 flex justify-between items-center"
+                }
+              >
                 <span>Temperature</span>{" "}
                 <span>{changeTemperature(cityDetails?.main?.temp)}</span>
               </div>
-              <div className="border-b border-b-white w-full p-2 flex justify-between items-center">
+              <div
+                className={
+                  theme === "light-theme"
+                    ? "border-b border-b-black w-full p-2 flex justify-between items-center"
+                    : "border-b border-b-white w-full p-2 flex justify-between items-center"
+                }
+              >
                 <span>Humidity</span>{" "}
                 <span>{cityDetails?.main?.humidity} %</span>
               </div>
