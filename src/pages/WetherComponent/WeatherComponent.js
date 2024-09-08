@@ -277,8 +277,8 @@ const WeatherComponent = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center my-2">
-          <div className="w-full md:w-4/5 ">
+        <div className="w-full flex  justify-center my-2">
+          <div className="w-[95%] md:w-4/5 px-6">
             <WeatherForeCast
               latitute={coordinates?.lat}
               longitude={coordinates?.lon}

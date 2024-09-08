@@ -86,14 +86,14 @@ const WeatherForeCast = ({
                       : " bg-transparent shadow shadow-white m-2 flex flex-col items-center p-2 rounded"
                   }
                 >
-                  <p className="font-semibold">
+                  <p className="font-semibold text-nowrap">
                     {moment(eachData?.dt_txt?.split(" ")[1], "HH:mm:ss").format(
                       "hh:mm A"
                     )}
                   </p>
                   {handleImage(eachData?.weather[0].main)}
 
-                  <p className="font-bold flex items-center">
+                  <p className="font-bold flex items-center text-nowrap">
                     <CiTempHigh size={22} />
                     {changeTemperature(eachData?.main?.temp)}
                   </p>
