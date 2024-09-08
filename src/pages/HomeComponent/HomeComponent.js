@@ -86,7 +86,7 @@ const HomeComponent = () => {
     <div
       className={
         theme === "light-theme"
-          ? "relative h-screen w-screen z-20 text-purple-500"
+          ? "relative h w-screen z-20 text-purple-500"
           : "relative h-screen w-screen z-20 text-white"
       }
     >
@@ -118,7 +118,7 @@ const HomeComponent = () => {
           </div>
         </div>
         <div
-          className="w-full md:w-4/5 max-h-[500px] overflow-auto "
+          className="w-[95%] md:w-4/5 max-h-[500px] overflow-auto "
           onScroll={handleScroll}
         >
           <table className="min-w-full ">

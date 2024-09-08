@@ -92,15 +92,15 @@ const WeatherComponent = () => {
       }
     >
       <Header />
-      <div className="flex justify-center items-center h-weather-conatiner">
-        <div className="shadow-sm shadow-slate-50 px-4 overflow-auto h-4/5 rounded-tl-2xl rounded-br-2xl py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 ">
-          <div className="flex flex-col justify-between md:border-r-2 md:border-r-white pr-3 ">
+      <div className="flex justify-center items-center h-screen md:h-weather-conatiner">
+        <div className="shadow-sm shadow-slate-50 px-4 mx-2 sm:mx-0 overflow-auto h-4/5  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 ">
+          <div className="flex flex-col justify-between md:border-r-2 md:border-r-white pr-3 border-b-2 pb-2 md:pb-0 border-b-white md:border-b:none ">
             <div className="flex items-end flex-col">
               <p className=" font-bold text-xl">{ascii_name}</p>
               <p className="self-end ">{cityDetails?.sys?.country}</p>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center my-5 md:my-0">
               <MapContainer
                 center={position}
                 zoom={10}
