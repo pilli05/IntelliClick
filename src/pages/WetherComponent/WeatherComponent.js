@@ -93,27 +93,29 @@ const WeatherComponent = () => {
     >
       <Header />
       <div className="flex justify-center items-center h-weather-conatiner">
-        <div className="shadow-sm shadow-slate-50 px-4 h-4/5 rounded-tl-2xl rounded-br-2xl py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 ">
-          <div className="flex flex-col justify-between border-r-2 border-r-white pr-3 ">
+        <div className="shadow-sm shadow-slate-50 px-4 overflow-auto h-4/5 rounded-tl-2xl rounded-br-2xl py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 ">
+          <div className="flex flex-col justify-between md:border-r-2 md:border-r-white pr-3 ">
             <div className="flex items-end flex-col">
               <p className=" font-bold text-xl">{ascii_name}</p>
               <p className="self-end ">{cityDetails?.sys?.country}</p>
             </div>
 
-            <MapContainer
-              center={position}
-              zoom={5}
-              scrollWheelZoom={false}
-              style={{ height: "250px", width: "100%", borderRadius: "10px" }}
-            >
-              <TileLayer
+            <div className="flex justify-center">
+              <MapContainer
+                center={position}
+                zoom={10}
+                scrollWheelZoom={false}
+                style={{ height: "250px", width: "80%", borderRadius: "10px" }}
+              >
+                {/* <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-              <Marker position={position} icon={customIcon}>
-                <Popup>{ascii_name}</Popup>
-              </Marker>
-            </MapContainer>
+              /> */}
+                <Marker position={position} icon={customIcon}>
+                  <Popup>{ascii_name}</Popup>
+                </Marker>
+              </MapContainer>
+            </div>
 
             <div className="flex items-start justify-between  space-x-3">
               <div className="flex flex-col text-base font-semibold ">
