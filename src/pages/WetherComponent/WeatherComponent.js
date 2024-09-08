@@ -8,6 +8,8 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { ThemeContext } from "../../App";
+import { FaTemperatureHigh } from "react-icons/fa";
+import { CiTempHigh } from "react-icons/ci";
 
 const customIcon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
@@ -92,12 +94,12 @@ const WeatherComponent = () => {
       }
     >
       <Header />
-      <div className="flex justify-center items-center h-screen md:h-weather-conatiner">
+      <div className="flex justify-center items-center h-weather-conatiner">
         <div
           className={
             theme === "light-theme"
-              ? "shadow shadow-black rounded px-4 mx-2 sm:mx-0 overflow-auto h-4/5  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 "
-              : "shadow shadow-slate-50 px-4 mx-2 sm:mx-0 overflow-auto h-4/5  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 "
+              ? "shadow shadow-black rounded px-4 mx-2 sm:mx-0 overflow-auto h-[90%]  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 "
+              : "shadow shadow-slate-50 px-4 mx-2 sm:mx-0 overflow-auto h-[90%]  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 "
           }
         >
           <div
@@ -109,7 +111,7 @@ const WeatherComponent = () => {
           >
             <div className="flex items-end flex-col">
               <p className=" font-bold text-xl">{ascii_name}</p>
-              <p className="self-end ">{cityDetails?.sys?.country}</p>
+              <p className="self-end text-sm">{cou_name_en}</p>
             </div>
 
             <div className="flex justify-center my-5 md:my-0">
@@ -140,7 +142,7 @@ const WeatherComponent = () => {
             </div>
           </div>
           <div className="flex flex-col justify-between items-center space-y-5 ">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center w-full">
               {handleImage(
                 cityDetails?.weather && cityDetails.weather.length > 0
                   ? cityDetails.weather[0].main
@@ -158,7 +160,48 @@ const WeatherComponent = () => {
                   {changeTemperature(cityDetails?.main?.feels_like)}
                 </span>
               </p>
+              <div className="flex  justify-between items-center w-full mt-2">
+                <p className="my-1 text-sm text-center font-light flex items-center">
+                  <CiTempHigh className="mr-1" /> Min Temp :{" "}
+                  <span className="font-bold ml-1">
+                    {changeTemperature(cityDetails?.main?.temp_min)}
+                  </span>
+                </p>
+                <p className="my-1 text-sm text-center font-light flex items-center">
+                  <CiTempHigh className="mr-1" />
+                  Max Temp :{" "}
+                  <span className="ml-1 font-bold">
+                    {changeTemperature(cityDetails?.main?.temp_max)}
+                  </span>
+                </p>
+              </div>
+              <div className="flex justify-between items-center w-full mt-2">
+                <p className="my-1 text-center text-sm font-light flex items-center">
+                  <img
+                    src="/assets/sun-rise.png"
+                    className="w-[20px] mr-1"
+                    alt="sun-rise"
+                  />
+                  Sun Rise :{" "}
+                  <span className="ml-1 font-bold">
+                    {" "}
+                    {moment.unix(cityDetails?.sys?.sunrise).format("HH:mm A")}
+                  </span>
+                </p>
+                <p className="my-1 text-sm text-center font-light flex items-center">
+                  <img
+                    src="/assets/sun-set.png"
+                    className="w-[20px] mr-1"
+                    alt="sun-set"
+                  />{" "}
+                  Sun Set :{" "}
+                  <span className="ml-1 font-bold">
+                    {moment.unix(cityDetails?.sys?.sunset).format("HH:mm A")}
+                  </span>
+                </p>
+              </div>
             </div>
+
             <select
               className="outline-none p-2 rounded-lg bg-transparent shadow shadow-black text-white w-full"
               onClick={(e) => setTemeratureType(e.target.value)}
