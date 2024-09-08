@@ -37,7 +37,7 @@ const Header = () => {
           <span
             className={
               theme === "light-theme"
-                ? "font-bold text-base text-purple-500"
+                ? "font-bold text-base text-black"
                 : "font-bold text-base text-white"
             }
           >

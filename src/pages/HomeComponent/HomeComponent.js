@@ -86,7 +86,7 @@ const HomeComponent = () => {
     <div
       className={
         theme === "light-theme"
-          ? "relative h w-screen z-20 text-purple-500"
+          ? "relative h w-screen z-20 text-black"
           : "relative h-screen w-screen z-20 text-white"
       }
     >

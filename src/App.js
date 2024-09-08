@@ -14,7 +14,13 @@ function App() {
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <div className="h-screen w-screen  relative overflow-hidden">
-        <div className="banner-container"></div>
+        <div
+          className={
+            theme === "light-theme"
+              ? "dark-theme-banner-container"
+              : "light-theme-banner-container"
+          }
+        ></div>
         <ToastContainer
           position="bottom-center"
           autoClose={5000}

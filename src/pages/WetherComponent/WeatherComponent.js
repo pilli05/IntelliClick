@@ -87,14 +87,14 @@ const WeatherComponent = () => {
     <div
       className={
         theme === "light-theme"
-          ? "relative z-20 h-screen w-screen text-purple-500"
+          ? "relative z-20 h-screen w-screen text-black"
           : "relative z-20 h-screen w-screen text-white"
       }
     >
       <Header />
       <div className="flex justify-center items-center h-screen md:h-weather-conatiner">
         <div className="shadow-sm shadow-slate-50 px-4 mx-2 sm:mx-0 overflow-auto h-4/5  py-3 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-3 w-full md:w-4/5 ">
-          <div className="flex flex-col justify-between md:border-r-2 md:border-r-white pr-3 border-b-2 pb-2 md:pb-0 border-b-white md:border-b:none ">
+          <div className="flex flex-col justify-between md:border-r-2 md:border-r-white pr-3 border-b-2 pb-2 md:pb-0 border-b-white md:border-b:none md:border-b-transparent ">
             <div className="flex items-end flex-col">
               <p className=" font-bold text-xl">{ascii_name}</p>
               <p className="self-end ">{cityDetails?.sys?.country}</p>

@@ -1,5 +1,18 @@
-.banner-container {
+.light-theme-banner-container {
   background-image: url("../public//assets/weather-image.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: blur(1px);
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.dark-theme-banner-container {
+  background-image: url("../public//assets/light-weather-image.jpg");
   background-size: cover;
   background-position: center;
   filter: blur(1px);
