@@ -8,9 +8,11 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { ThemeContext } from "../../App";
-import { FaTemperatureHigh } from "react-icons/fa";
+import { FaCity, FaTemperatureHigh, FaWind } from "react-icons/fa";
 import { CiTempHigh } from "react-icons/ci";
 import WeatherForeCast from "../../components/WeatherForeCast";
+import { WiHumidity } from "react-icons/wi";
+import { IoMdGlobe } from "react-icons/io";
 
 const customIcon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
@@ -114,8 +116,11 @@ const WeatherComponent = () => {
               }
             >
               <div className="flex items-end flex-col">
-                <p className=" font-bold text-xl">{ascii_name}</p>
-                <p className="self-end text-sm">{cou_name_en}</p>
+                <p className=" font-bold text-2xl ">{ascii_name}</p>
+                <p className="self-end text-sm flex items-center">
+                  <IoMdGlobe className="mr-1" />
+                  {cou_name_en}
+                </p>
               </div>
 
               <div className="flex justify-center my-5 md:my-0">
@@ -242,7 +247,9 @@ const WeatherComponent = () => {
                       : "border-b border-b-white w-full p-2 flex justify-between items-center"
                   }
                 >
-                  <span>Temperature</span>{" "}
+                  <span className="flex items-center">
+                    Temperature <CiTempHigh className="ml-2" size={22} />
+                  </span>{" "}
                   <span>{changeTemperature(cityDetails?.main?.temp)}</span>
                 </div>
                 <div
@@ -252,12 +259,16 @@ const WeatherComponent = () => {
                       : "border-b border-b-white w-full p-2 flex justify-between items-center"
                   }
                 >
-                  <span>Humidity</span>{" "}
+                  <span className="flex items-center">
+                    Humidity <WiHumidity className="ml-2" size={22} />
+                  </span>{" "}
                   <span>{cityDetails?.main?.humidity} %</span>
                 </div>
 
                 <div className=" w-full p-2 flex justify-between items-center">
-                  <span>Wind Speed</span>{" "}
+                  <span className="flex items-center">
+                    Wind Speed <FaWind className="ml-2" />
+                  </span>{" "}
                   <span>
                     {(cityDetails?.wind?.speed * 3.6).toFixed(2)} Km/hr
                   </span>
